@@ -17,8 +17,7 @@ namespace internKYC
         public DbSet<KYCFormModel> KYCForms { get; set; }
         public DbSet<DocumentModel> Documents { get; set; }
 
-        public DbSet<ImageModel> Files { get; set; }
-       // public DbSet<FileUploadAPI> Images { get; set; }
+        //public DbSet<ImageModel> Files { get; set; }
 
         public DbSet<ContactNumberModel> OtpLogs { get; set; }
 

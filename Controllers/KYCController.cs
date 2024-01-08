@@ -28,11 +28,6 @@ namespace internKYC.Controllers
         }
 
 
-        [HttpPost("UploadDocument")]
-        public BaseResponse UploadDocument(UploadDocumentRequest request)
-        {
-            return InternKYCService.UploadDocument(request);
-        }
 
         [HttpGet("GetKYCForms")]
         public List<KYCFormResponse> GetKYCForms(int page = 1, int pageSize = 10)

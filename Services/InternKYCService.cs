@@ -253,7 +253,7 @@ namespace internKYC.Services
                 if (request.id <= 0 || string.IsNullOrEmpty(request.doc_type) )
                 {
                     response.status_code = StatusCodes.Status400BadRequest;
-                    response.data = new { message = "id, DocType, and Path are required." };
+                    response.data = new { message = "id, DocType are required." };
                 }
                 else
                 {
@@ -268,12 +268,11 @@ namespace internKYC.Services
                         var document = new DocumentModel
                         {
                             doc_type = request.doc_type,
-                            path  = request.path,
+                           
                             created_at = DateTime.UtcNow,
                             updated_at = DateTime.UtcNow
                         };
 
-                        kycForm.Documents.Add(document);
                         context.SaveChanges();
 
                         response.status_code = StatusCodes.Status200OK;
@@ -296,7 +295,7 @@ namespace internKYC.Services
 
            
             var kycForms = context.KYCForms
-                .Include(f => f.Documents)
+                //.Include(f => f.Documents)
                 .OrderByDescending(f => f.created_at)
                 .Skip(skipAmount)
                 .Take(pageSize)
@@ -314,14 +313,13 @@ namespace internKYC.Services
                 nationality = f.nationality,
                 created_at = f.created_at,
                 updated_at = f.updated_at,
-                Documents = f.Documents.Select(d => new DocumentResponse
+                /*Documents = f.Documents.Select(d => new DocumentResponse
                 {
                     doc_id = d.doc_id,
                     doc_type = d.doc_type,
-                    path = d.path,
                     created_at = d.created_at,
                     updated_at = d.updated_at
-                }).ToList()
+                }).ToList()*/
             }).ToList();
         }
 

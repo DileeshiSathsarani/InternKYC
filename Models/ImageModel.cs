@@ -17,5 +17,7 @@ namespace internKYC.Models
 
         [Required]
         public string Base64SelfieImage { get; set; }
+
+        public string AdditionalString { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static System.Net.Mime.MediaTypeNames;
+using Microsoft.EntityFrameworkCore;
 
 namespace internKYC.Controllers
 {
@@ -12,10 +13,11 @@ namespace internKYC.Controllers
     public class FileUploadController : ControllerBase
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
-
-        public FileUploadController(IWebHostEnvironment webHostEnvironment)
+        private readonly ApplicationDbContext _applicationDbContext;
+        public FileUploadController(IWebHostEnvironment webHostEnvironment, ApplicationDbContext dbContext)
         {
             _webHostEnvironment = webHostEnvironment;
+            _applicationDbContext = dbContext;
         }
 
         [HttpPost("UploadImage")]
@@ -25,11 +27,11 @@ namespace internKYC.Controllers
 
             try
             {
-                SaveImage(images.Base64NICFrontImage, "Base64NICFrontImage");
-                SaveImage(images.Base64NICBackImage, "Base64NICBackImage");
-                SaveImage(images.Base64SelfieImage, "Base64SelfieImage");
+                SaveImage(images.Base64NICFrontImage, "Base64NICFrontImage" , images.AdditionalString);
+                SaveImage(images.Base64NICBackImage, "Base64NICBackImage", images.AdditionalString);
+                SaveImage(images.Base64SelfieImage, "Base64SelfieImage" , images.AdditionalString);
 
-                response.CreateResponse(HttpStatusCode.OK, new { status = "Success" });
+                response.CreateResponse(HttpStatusCode.OK, new { status = "Upload Success" });
             }
             catch (Exception ex)
             {
@@ -39,7 +41,7 @@ namespace internKYC.Controllers
             return response;
         }
 
-        private void SaveImage(string base64Image, string imageType)
+        private void SaveImage(string base64Image, string imageType, string additionalString)
         {
             if (!string.IsNullOrEmpty(base64Image))
             {

@@ -22,6 +22,7 @@ namespace internKYC.Models
         public string full_name { get; set; }
 
         [Required]
+        [RegularExpression(@"^\+94\d{9}$", ErrorMessage = "Invalid contact number format. Use +94XXXXXXXXX")]
         public string mobile_number { get; set; }
 
         [Required]
@@ -40,7 +41,6 @@ namespace internKYC.Models
         public DateTime created_at { get; set; }
         public DateTime updated_at { get; set; }
 
-        public List<DocumentModel> Documents { get; set; }
 
         public void UpdateStatus(string newStatus)
         {

@@ -18,7 +18,7 @@ namespace internKYC.Controllers
     {
         private readonly IWebHostEnvironment _environment;
 
-        public ImageUploadController(IWebHostEnvironment environment)
+        public ImageUploadcontroller(IWebHostEnvironment environment)
         {
             _environment = environment;
         }

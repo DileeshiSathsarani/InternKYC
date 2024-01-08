@@ -11,8 +11,8 @@ using internKYC;
 namespace internKYC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240104160159_twentythird_migration")]
-    partial class twentythird_migration
+    [Migration("20240107153644_thirtysecond_migration")]
+    partial class thirtysecond_migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,19 +28,24 @@ namespace internKYC.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("OtpLog")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("contact_number")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("id")
+                    b.Property<DateTime>("created_at")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("id")
                         .HasColumnType("int");
 
                     b.Property<string>("otp")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<DateTime>("updated_at")
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("ContactNumberId");
 
@@ -52,36 +57,6 @@ namespace internKYC.Migrations
                     b.Property<int>("doc_id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    b.Property<int>("KYCFormid")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("created_at")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("doc_type")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("path")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("updated_at")
-                        .HasColumnType("datetime(6)");
-
-                    b.HasKey("doc_id");
-
-                    b.HasIndex("KYCFormid");
-
-                    b.ToTable("Documents");
-                });
-
-            modelBuilder.Entity("internKYC.Models.ImageModel", b =>
-                {
-                    b.Property<string>("KYCForms")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Base64NICBackImage")
                         .IsRequired()
@@ -95,18 +70,28 @@ namespace internKYC.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.HasKey("KYCForms");
+                    b.Property<DateTime>("created_at")
+                        .HasColumnType("datetime(6)");
 
-                    b.ToTable("Files");
+                    b.Property<string>("doc_type")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("path")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("updated_at")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("doc_id");
+
+                    b.ToTable("Documents");
                 });
 
             modelBuilder.Entity("internKYC.Models.KYCFormModel", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("ContactNumberModelId")
                         .HasColumnType("int");
 
                     b.Property<string>("NICNumber")
@@ -145,43 +130,7 @@ namespace internKYC.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("ContactNumberModelId")
-                        .IsUnique();
-
                     b.ToTable("kycformdata");
-                });
-
-            modelBuilder.Entity("internKYC.Models.DocumentModel", b =>
-                {
-                    b.HasOne("internKYC.Models.KYCFormModel", "KYCForm")
-                        .WithMany("Documents")
-                        .HasForeignKey("KYCFormid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("KYCForm");
-                });
-
-            modelBuilder.Entity("internKYC.Models.KYCFormModel", b =>
-                {
-                    b.HasOne("internKYC.Models.ContactNumberModel", "ContactNumber")
-                        .WithOne("KYCForm")
-                        .HasForeignKey("internKYC.Models.KYCFormModel", "ContactNumberModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ContactNumber");
-                });
-
-            modelBuilder.Entity("internKYC.Models.ContactNumberModel", b =>
-                {
-                    b.Navigation("KYCForm")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("internKYC.Models.KYCFormModel", b =>
-                {
-                    b.Navigation("Documents");
                 });
 #pragma warning restore 612, 618
         }
