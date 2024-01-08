@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("internKYC")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2264c882ab089a87aa5f323ae79875d9614432b8")]
 [assembly: System.Reflection.AssemblyProductAttribute("internKYC")]
 [assembly: System.Reflection.AssemblyTitleAttribute("internKYC")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
